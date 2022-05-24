@@ -1,31 +1,34 @@
 const express = require('express');
 const router = express.Router();
+// const data = require('../data')
 
-const rangersModel = require('../db');
-
+const rangersModel = require('../model/db');
+// const partials = {
+//     body: 'partials/home'
+// }
 router.get('/', (req, res) => {
     res.render('template', {
+        partials: {
+            body: 'partials/ranger-list',
+        },
         locals: {
             title: 'List of Power Rangers',
             data: rangersModel
-        },
-        partials: {
-            body: 'partials/ranger-list',
         },
     });
 });
 
 router.get('/:slug', (req, res) => {
     const { slug } = req.params;
-    const ranger = rangersModel.find((ranger => ranger.slug === slug)
+    const ranger = rangersModel.find((ranger => ranger.slug === slug))
     if (ranger) {
         res.render('template', {
+            partials: {
+                body: 'partials/ranger-details',
+            },
             locals: {
                 title: `Power Ranger: ${ranger.name}`,
                 ranger
-            },
-            partials: {
-                body: 'partials/ranger-details',
             },
         });
     } else {
@@ -33,3 +36,5 @@ router.get('/:slug', (req, res) => {
     }
 
 });
+
+module.exports = router
