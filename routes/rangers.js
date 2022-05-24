@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
-// const data = require('../data')
 
 const rangersModel = require('../model/db');
-// const partials = {
-//     body: 'partials/home'
-// }
+
 router.get('/', (req, res) => {
     res.render('template', {
         partials: {
